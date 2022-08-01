@@ -1,0 +1,36 @@
+:root {
+    --primaire : #FD2D01;
+    --secondaire : #FFD7D7;
+    --tertiaire : #4E5166;
+  --quaternaire:#0dbcbc;
+}
+
+body {
+    display:flex;
+    flex-direction:column;
+      background-color:var(--secondaire)
+}
+a{
+    text-decoration:none;
+    padding:5px;
+}
+
+#logo img{
+display:block;
+margin:auto;
+height:500px;
+}
+
+#bouttons{
+
+    display:flex;
+    margin:auto;
+}
+
+#bouttonSignup, #bouttonLogin{
+    background-color:#0dbcbc;
+    color:var(--primaire);
+    border-color:aquamarine;
+    padding:10px;
+    border-radius:30px 30px 30px 30px;
+}
