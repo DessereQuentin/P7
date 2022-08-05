@@ -1,0 +1,83 @@
+:root {
+    --primaire : #FD2D01;
+    --secondaire : #FFD7D7;
+    --tertiaire : #4E5166;
+    --quaternaire:#0dbcbc;
+}
+
+body{
+    background-color:var(--secondaire);
+}
+main{
+    display:flex;
+    flex-direction:column;
+    width:70%;
+    margin:auto;
+border:solid var(--tertiaire);
+background-color:var(--secondaire);
+border-radius:20px 20px 20px 20px;
+}
+
+main img{
+    display:flex;
+    width:300px;
+height:200px;}
+
+#logo img{
+   color:var(--secondaire);
+display:block;
+margin:auto;
+height:300px;
+width:500px;
+}
+
+h1{
+text-align:center;
+}
+
+h2{
+    text-decoration:underline;
+    background-color: #fabcbc;
+}
+.post{
+
+    background-color: #fabcbc;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+margin-bottom:50px;
+}
+
+.postContent{
+    padding:10px;
+    display:flex;
+    justify-content:space-around;
+    text-align:justify;
+}
+
+.postContent img{
+    margin-right:10px;
+}
+
+.fa-solid{
+    padding:10px;
+    color:var(--primaire);
+    cursor:pointer;
+}
+
+#afficherCreatePost{
+    display:flex;
+    flex-direction:row;
+    align-items:baseline;
+}
+
+.createPost{
+    display:none;
+    flex-direction:column;
+    }
+
+#createPosttitre{max-width: 300px;}    
+#createPostTexte{max-width: 500px;}
+#uploadImage{max-width:100px;}
+   
+.fa-arrow-down{
+    
+}

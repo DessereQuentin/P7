@@ -1,0 +1,51 @@
+:root {
+    --primaire : #FD2D01;
+    --secondaire : #FFD7D7;
+    --tertiaire : #4E5166;
+}
+
+body {
+    display:flex;
+    flex-direction:column;
+      background-color:var(--secondaire)
+}
+
+#logo img{
+display:block;
+margin:auto;
+height:500px;
+}
+
+#form{
+      display:flex;
+    flex-direction:column;
+margin:auto;
+}
+
+#form-inputs{
+
+
+
+
+
+}
+
+#Email,#Username,#Password{display:flex;
+ align-items:baseline;
+ justify-content:flex-end;
+}
+
+
+#email,#username,#password{
+    width:200px;
+    height:15px;
+    display:flex;
+  margin:5px;
+  
+    
+}
+#boutton{
+margin:auto;
+}
+
+
