@@ -1,63 +1,59 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
-import { StyledLink } from '../../utils/style/Atoms'
-import { useTheme } from '../../utils/hooks'
-import HomeIllustration from '../../assets/home-illustration.svg'
+import LogoImg from '../../assets/icon-left-font-monochrome-black.png'
 
-const HomeWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
-const HomerContainer = styled.div`
-  margin: 30px;
-  background-color: ${({ theme }) =>
-    theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
-  padding: 60px 90px;
-  display: flex;
-  flex-direction: row;
-  max-width: 1200px;
-`
-
-const LeftCol = styled.div`
+const Body = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  flex: 1;
-  ${StyledLink} {
-    max-width: 250px;
-  }
+  background-color: ${colors.secondaire};
 `
 
-const StyledTitle = styled.h2`
-  padding-bottom: 30px;
-  max-width: 280px;
-  line-height: 50px;
-  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+const Logo = styled.img`
+  display: block;
+  margin: auto;
+  max-height: 500px;
+  max-width: 500px;
+`
+const Button = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-decoration: none;
 `
 
-const Illustration = styled.img`
-  flex: 1;
+const Signup = styled.button`
+  background-color: #0dbcbc;
+  color: var(--primaire);
+  border-color: aquamarine;
+  width: 80px;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 30px 30px 30px 30px;
+`
+const Login = styled.button`
+  background-color: #0dbcbc;
+  color: var(--primaire);
+  border-color: aquamarine;
+  width: 80px;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 30px 30px 30px 30px;
 `
 
 function Home() {
-  const { theme } = useTheme()
-
   return (
-    <HomeWrapper>
-      <HomerContainer theme={theme}>
-        <LeftCol>
-          <StyledTitle theme={theme}>
-            Repérez vos besoins, on s’occupe du reste, avec les meilleurs
-            talents
-          </StyledTitle>
-          <StyledLink to="/survey/1" $isFullLink>
-            Faire le test
-          </StyledLink>
-        </LeftCol>
-        <Illustration src={HomeIllustration} />
-      </HomerContainer>
-    </HomeWrapper>
+    <Body>
+      <Logo src={LogoImg} />
+      <Button>
+        <Link to="/signup">
+          <Signup>Signup</Signup>
+        </Link>
+        <Link to="/login">
+          <Login>Login</Login>
+        </Link>
+      </Button>
+    </Body>
   )
 }
 

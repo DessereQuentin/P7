@@ -1,43 +1,43 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import pageSignup from './pages/Signup'
+import pageLogin from './pages/Login'
 import Home from './pages/Home'
-import Survey from './pages/Signup'
-import Results from './pages/Login'
-import Freelances from './pages/Posts'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import Survey from './pages/Survey'
+import Results from './pages/Results'
+import Freelances from './pages/Freelances'
 import Error from './components/Error'
-import GlobalStyle from './utils/style/GlobalStyle'
-import { ThemeProvider, SurveyProvider } from './utils/context'
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+    * {
+      font-family: 'Trebuchet MS', Helvetica, sans-serif;
+    }
+`
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <ThemeProvider>
-        <SurveyProvider>
-          <GlobalStyle />
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/survey/:questionNumber">
-              <Survey />
-            </Route>
-            <Route path="/results">
-              <Results />
-            </Route>
-            <Route path="/freelances">
-              <Freelances />
-            </Route>
-            <Route path="*">
-              <Error />
-            </Route>
-          </Switch>
-          <Footer />
-        </SurveyProvider>
-      </ThemeProvider>
+      <GlobalStyle />
+
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/signup">
+          <pageSignup />
+        </Route>
+        <Route path="/login">
+          <Results/>
+        </Route>
+        <Route path="/freelances">
+          <Freelances />
+        </Route>
+        <Route>
+          <Error />
+        </Route>
+      </Switch>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

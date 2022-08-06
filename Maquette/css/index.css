@@ -10,15 +10,13 @@ body {
     flex-direction:column;
       background-color:var(--secondaire)
 }
-a{
-    text-decoration:none;
-    padding:5px;
-}
+
 
 #logo img{
 display:block;
 margin:auto;
-height:500px;
+max-height:500px;
+max-width:500px;
 }
 
 #bouttons{
@@ -28,6 +26,7 @@ height:500px;
 }
 
 #bouttonSignup, #bouttonLogin{
+    margin:5px;
     background-color:#0dbcbc;
     color:var(--primaire);
     border-color:aquamarine;

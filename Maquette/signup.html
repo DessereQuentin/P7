@@ -11,33 +11,30 @@
 
 <body>
 
-  <header>
     <div id="logo">
       <img src="images/icon-left-font-monochrome-black.png" alt="Logo Booki" />
     </div>
-  </header>
+
 
   <main id="form">
-    <div id="form-inputs">
-    <div id="email">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" formControlName="email">
-    </div>
-    <div id="username">
-      <label for="username">Username</label>
-      <input type="string" class="form-control" id="Username" formControlName="Username">
-    </div>
-    <div id="password">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" formControlName="password">
-    </div>
-        </div>
-  <a href="posts.html" id="boutton">
-        <button mat-raised-button [disabled]="loginForm.invalid" (click)="onLogin()">SIGNUP</button>
-  </a>
+      <div id="form-inputs">
+      <div id="Email">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" formControlName="email">
+      </div>
+      <div id="Username">
+        <label for="username">Username</label>
+        <input type="string" class="form-control" id="username" formControlName="username">
+      </div>
+      <div id="Password">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" formControlName="password">
+      </div>
+          </div>
+    <a href="posts.html" id="boutton">
+          <button mat-raised-button [disabled]="loginForm.invalid" (click)="onSignup()">SIGNUP</button>
+    </a>
 </main>
-
-
 
 
 

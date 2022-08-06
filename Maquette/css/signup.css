@@ -22,16 +22,30 @@ height:500px;
 margin:auto;
 }
 
-#form-inputs{
-padding:20px;
+
+#Email,#Username,#Password{display:flex;
+ align-items:baseline;
+ justify-content:flex-end;
 }
 
-#email,#password{
-    padding-top:5px;
-}
 
+#email,#username,#password{
+    width:200px;
+    height:15px;
+    display:flex;
+  margin:5px;
+  
+    
+}
 #boutton{
 margin:auto;
 }
+
+button{ margin:5px;
+    background-color:#0dbcbc;
+    color:var(--primaire);
+    border-color:aquamarine;
+    padding:10px;
+    border-radius:30px 30px 30px 30px;}
 
 
