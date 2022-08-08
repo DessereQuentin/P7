@@ -6,12 +6,6 @@ const userRoutes = require('./routes/user');
 const path = require('path');
 require('dotenv').config()
 const morgan = require('morgan')
-const rateLimit=require('express-rate-limit')
-
-
-
-
-
 
 mongoose.connect(process.env.DB_URL,
   { useNewUrlParser: true,

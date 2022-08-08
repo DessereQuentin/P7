@@ -28,7 +28,7 @@ height:200px;}
 display:block;
 margin:auto;
 height:300px;
-width:500px;
+width:400px;
 }
 
 h1{
@@ -67,17 +67,25 @@ margin-bottom:50px;
     display:flex;
     flex-direction:row;
     align-items:baseline;
+    cursor:pointer;
 }
 
 .createPost{
-    display:none;
+    display:flex;
     flex-direction:column;
+   padding:10px;
     }
 
 #createPosttitre{max-width: 300px;}    
 #createPostTexte{max-width: 500px;}
 #uploadImage{max-width:100px;}
    
-.fa-arrow-down{
+summary::marker{ content: "";}
+
     
-}
+    button{ margin:5px;
+        background-color:#0dbcbc;
+        color:var(--primaire);
+        border-color:aquamarine;
+        padding:10px;
+        border-radius:30px 30px 30px 30px;}

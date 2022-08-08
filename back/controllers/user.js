@@ -25,12 +25,14 @@ exports.login = (req, res, next) => {
             if (!user) {
                 return res.status(401).json({ error: 'Utilisateur non trouvé !' });
             }
+            console.log(user)
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
                         return res.status(401).json({ error: 'Mot de passe incorrect !' });
                     }
                     res.status(200).json({
+                        isAdmin:user.isAdmin,
                         userId: user._id,
                         token: jwt.sign(
                             { userId: user._id },

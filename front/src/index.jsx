@@ -1,12 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import pageSignup from './pages/Signup'
-import pageLogin from './pages/Login'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+import Posts from './pages/Posts'
 import Home from './pages/Home'
-import Survey from './pages/Survey'
-import Results from './pages/Results'
-import Freelances from './pages/Freelances'
 import Error from './components/Error'
 import { createGlobalStyle } from 'styled-components'
 
@@ -26,13 +24,13 @@ ReactDOM.render(
           <Home />
         </Route>
         <Route path="/signup">
-          <pageSignup />
+          <Signup />
         </Route>
         <Route path="/login">
-          <Results/>
+          <Login/>
         </Route>
-        <Route path="/freelances">
-          <Freelances />
+        <Route path="/posts">
+          <Posts />
         </Route>
         <Route>
           <Error />
