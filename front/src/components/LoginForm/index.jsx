@@ -64,7 +64,7 @@ function MyForm() {
       body:JSON.stringify({email,password})
          })
     .then(res=>res.json()) 
-    .then(res=>{localStorage.setItem("token",res.token);localStorage.setItem("userId",res.userId)})
+    .then(res=>{localStorage.setItem("token",res.token);localStorage.setItem("userId",res.userId);localStorage.setItem("userName",res.userName)})
  
 const token=localStorage.getItem("token")
 console.log(token)

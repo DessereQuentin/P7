@@ -4,13 +4,14 @@ const User = require('../models/User');
 
 
 exports.createPost = (req, res, next) => {
+console.log(req.body.title)
+console.log(req.body.text)
   const postObject = JSON.parse(req.body.post)
   User.findById(req.auth.userId)
-  .then((user)=>{console.log(user.userName)
+  .then((user)=>{
   const post = new Post({
     ...postObject,
-   
-    userId: user._id,
+       userId: user._id,
     userName:user.userName,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     likes: 0,

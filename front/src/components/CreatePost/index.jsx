@@ -53,14 +53,17 @@ function CreatePost() {
     formData.append("title",title);
     formData.append("text",text);
     formData.append("image",picture);
+   
+
 
     await  fetch('http://localhost:4000/api/posts/',{
     method:"POST",
     headers: {
-
+    
       'Authorization': 'Bearer ' + token
     },
     body:formData
+ 
   })
     }
 
