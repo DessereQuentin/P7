@@ -7,7 +7,7 @@ exports.signup = (req, res, next) => {
         .then(hash => {
             const user = new User({
                 email: req.body.email,
-                username: req.body.username,
+                userName: req.body.userName,
                 password: hash,
                 isAdmin:req.body.isAdmin
             });
@@ -35,14 +35,14 @@ exports.login = (req, res, next) => {
                         isAdmin:user.isAdmin,
                         userId: user._id,
                         token: jwt.sign(
-                            { userId: user._id },
+                            { userId: user._id, isAdmin:user.isAdmin },
                              process.env.JWT_SECRET,
                             { expiresIn: '24h' }
                           
                         )
                     });
                     console.log("gotToken")
-                        
+                                      
                 })
                 .catch(error => res.status(500).json({ error }));
         })

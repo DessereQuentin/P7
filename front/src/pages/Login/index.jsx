@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import LoginForm from '../../components/LoginForm'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
@@ -15,23 +14,9 @@ const Logo = styled.img`
   margin: auto;
   max-height: 500px;
   max-width: 500px;
-`
-
-const Button = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  text-decoration: none;
-`
-
-const BouttonLogin = styled.button`
-background-color: ${colors.quaternaire};
-  color: ${colors.primaire};
-  border-color: aquamarine;
-  width: 80px;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 30px 30px 30px 30px;
+  @media only screen and (max-width:768px){
+    width:90%;
+  }
 `
 
 function Login() {

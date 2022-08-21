@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useHistory } from "react-router-dom";
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import colors from '../../utils/style/colors'
@@ -7,7 +8,6 @@ const Form=styled.form`
 display:flex;
 flex-direction:column;
 margin:auto;
-justify-content:flex-end;
 `
 const Label=styled.label`
 display:flex;
@@ -21,7 +21,11 @@ display:flex;
 margin:5px;
 padding:5px;
 border-radius:30px 30px 30px 30px;
-border:none
+border:none;
+@media only screen and (max-width:320px){
+   width 150px;
+padding:none;
+}
 `
 
 
@@ -44,8 +48,30 @@ background-color: ${colors.quaternaire};
 
 function MyForm() {
   const [email, setMail] = useState("");
-  const [username, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  let history = useHistory();
+const isAdmin=false;
+
+  async function signup(e){
+    e.preventDefault();
+
+   await  fetch('http://localhost:4000/api/auth/signup',{
+      method:"POST",
+      headers: {
+        'Accept': 'application.json',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({email,userName,password,isAdmin})
+
+      
+    })
+    .then(response=>response.json())
+    .then(response=>console.log(response))
+    history.push('/login')
+ }
+     
+
 
   return (
     <Form>
@@ -59,8 +85,8 @@ function MyForm() {
           <Label>pseudo:
         <Input
           type="text" 
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
         />
       </Label>
             <Label>password:
@@ -72,7 +98,7 @@ function MyForm() {
       </Label>
        <Button>
       <Link to="/login">
-        <BouttonSignup>Signup</BouttonSignup>
+        <BouttonSignup onClick={signup}>Signup</BouttonSignup>
         </Link>
       </Button>
     </Form>

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import colors from '../../utils/style/colors'
+
 
 const Form = styled.form`
   display: flex;
@@ -21,7 +22,11 @@ display:flex;
 margin:5px;
 padding:5px;
 border-radius:30px 30px 30px 30px;
-border:none
+border:none;
+@media only screen and (max-width:320px){
+  width 150px;
+padding:none;
+}
 `
 
 const Button = styled.div`
@@ -41,9 +46,36 @@ const BouttonLogin = styled.button`
   border-radius: 30px 30px 30px 30px;
 `
 
+
 function MyForm() {
   const [email, setMail] = useState('')
   const [password, setPassword] = useState('')
+   let history = useHistory();
+
+  async function Login(e){
+        e.preventDefault();
+  
+   await  fetch('http://localhost:4000/api/auth/login',{
+      method:"POST",
+      headers: {
+        'Accept': 'application.json',
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({email,password})
+         })
+    .then(res=>res.json()) 
+    .then(res=>{localStorage.setItem("token",res.token);localStorage.setItem("userId",res.userId)})
+ 
+const token=localStorage.getItem("token")
+console.log(token)
+let path;
+ if ( token==="undefined"){
+      path="/login"
+    }else{
+     path="/posts"
+       }
+            history.push(path)
+        }
 
   return (
     <Form>
@@ -63,12 +95,11 @@ function MyForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </Label>
-      <Button>
-        <Link to="/posts">
-          <BouttonLogin>Login</BouttonLogin>
-        </Link>
-      </Button>
+       <Button>
+        <BouttonLogin onClick={Login}>Login</BouttonLogin>
+         </Button>
     </Form>
   )
 }
 export default MyForm
+ 

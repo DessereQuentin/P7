@@ -38,7 +38,7 @@ border-radius: 30px 30px 30px 30px;
     
 
 
-function CreatePost() {
+function ModifyPost() {
 
 
   const token=localStorage.getItem("token")
@@ -57,7 +57,7 @@ function CreatePost() {
     await  fetch('http://localhost:4000/api/posts/',{
     method:"POST",
     headers: {
-
+       'Content-Type': 'multipart/form-data',
       'Authorization': 'Bearer ' + token
     },
     body:formData
@@ -82,6 +82,6 @@ function CreatePost() {
   
 
  
-  export default CreatePost
+  export default ModifyPost
 
   

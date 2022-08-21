@@ -1,23 +1,55 @@
 const Post = require('../models/Post');
 const fs = require('fs');
-
+const User = require('../models/User');
 
 
 exports.createPost = (req, res, next) => {
   const postObject = JSON.parse(req.body.post)
+  User.findById(req.auth.userId)
+  .then((user)=>{console.log(user.userName)
   const post = new Post({
     ...postObject,
    
-    userId: req.auth.userId,
- 
-   imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    userId: user._id,
+    userName:user.userName,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     likes: 0,
-    dislikes: 0
+    dislikes: 0,
+    usersLiked:[],
+    usersDisliked:[]
   });
+  console.log(post)
   post.save()
+})
     .then(() => { res.status(201).json({ message: 'Objet enregistré !' }) })
     .catch(error => { res.status(400).json({ error }) })
 };
+
+
+
+/**exports.createPost = (req, res, next) => {
+  console.log("hello")
+    User.findById(req.auth.userId)
+    .then((user)=>{
+      console.log(req.body)
+    //  const postObject = JSON.parse(req.body)
+      const post = new Post({
+    //  ...postObject,
+    ...req.body,
+       userId: req.auth.userId,
+       userName:user.userName,
+       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+       likes: 0,
+       dislikes: 0,
+       userLikes:[],
+       userDislikes:[]
+      });
+    post.save()
+    })
+    .then(() => { res.status(201).json({ message: 'Objet enregistré !' }) })
+   .catch(error => { res.status(400).json({ error }) })  
+
+};*/
 
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
@@ -42,7 +74,7 @@ exports.modifyPost = (req, res, next) => {
   } : { ...req.body }
    Post.findOne({ _id: req.params.id })
     .then((post) => {
-      if ((req.isAdmin!=true)&&(post.userId != req.auth.userId)) {
+      if ((req.auth.isAdmin!=true)&&(post.userId != req.auth.userId)) {
         res.status(401).json({ message: 'Not authorized' });
       } else {
  
@@ -58,7 +90,9 @@ exports.modifyPost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   Post.findOne({ _id: req.params.id })
+
     .then(post => {
+   
       if ((req.auth.isAdmin!=true)&&(post.userId != req.auth.userId)) {
         res.status(401).json({ message: 'Not authorized' });
       } else {
@@ -77,10 +111,11 @@ exports.deletePost = (req, res, next) => {
 
 exports.getAllPost = (req, res, next) => {
   Post.find().then(
-    (posts) => {
-      res.status(200).json(posts);
+    (post) => {
+      res.status(200).json(post);
     }
-  ).catch(
+  )
+  .catch(
     (error) => {
       res.status(400).json({
         error: error
@@ -88,6 +123,9 @@ exports.getAllPost = (req, res, next) => {
     }
   );
 };
+
+
+
 
 exports.modifyLikes = (req, res, next) => {
   const likeObject = { ...req.body }
@@ -113,6 +151,11 @@ exports.modifyLikes = (req, res, next) => {
       }
       else if (likeObject.like == 1) {
         var indexLikes = postObject.usersLiked.indexOf(likeObject.userId);
+        var indexDislikes = postObject.usersDisliked.indexOf(likeObject.userId);
+        if (indexDislikes != -1) {
+          postObject.usersDisliked.splice(indexDislikes, 1);
+          postObject.dislikes = postObject.usersDisliked.length
+         }
         if (indexLikes != -1) {
           postObject.usersLiked.splice(indexLikes, 1);
         }
@@ -120,7 +163,12 @@ exports.modifyLikes = (req, res, next) => {
         postObject.likes = postObject.usersLiked.length
 
       } else {
+        var indexLikes = postObject.usersLiked.indexOf(likeObject.userId);
         var indexDislikes = postObject.usersDisliked.indexOf(likeObject.userId);
+        if (indexLikes != -1) {
+          postObject.usersLiked.splice(indexLikes, 1);
+          postObject.likes =postObject.usersLiked.length
+        }
         if (indexDislikes != -1) {
          postObject.usersDisliked.splice(indexDislikes, 1);
         }

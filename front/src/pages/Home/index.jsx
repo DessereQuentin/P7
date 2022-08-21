@@ -14,6 +14,10 @@ const Logo = styled.img`
   margin: auto;
   max-height: 500px;
   max-width: 500px;
+
+  @media only screen and (max-width:768px){
+    width:100%;
+  }
 `
 const Button = styled.div`
   display: flex;
