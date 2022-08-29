@@ -65,6 +65,7 @@ function CreatePost() {
     body:formData
  
   })
+window.location.reload()
     }
 
   

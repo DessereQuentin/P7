@@ -22,8 +22,9 @@ const PostContent = styled.div`
   text-align: justify;
 `
 const Picture = styled.img`
+border-radius:100px 100px 100px 100px;
   margin-right: 10px;
-  display: flex;
+    display: flex;
   width: 200px;
   height: 200px;
 `
@@ -58,55 +59,58 @@ const Boutton = styled.button`
   border-radius: 30px 30px 30px 30px;
 `
 
-function Post({ _id,userName, title, picture, text, likes, disLikes }) {
+function Post({ _id,userName, title, imageUrl, text, likes, dislikes }) {
   const userId = localStorage.getItem('userId')
-
-
-  async function Modifier() {}
+  const token=localStorage.getItem("token")
 
   async function Supprimer() {
- 
 
-    await fetch(' http://localhost:4000/api/posts/'+_id, {
+    await fetch('http://localhost:4000/api/posts/'+_id, {
       method: 'DELETE',
+      headers: {
+            'Authorization': 'Bearer ' + token
+      },
     })
   }
 
-  async function Likes() {
-    likes = 1
-    await fetch('http://localhost:4000/api/posts/:id/like', {
+ async function Likes() {
+    const like = 1
+    await fetch('http://localhost:4000/api/posts/'+ _id + '/like', {
       method: 'POST',
       headers: {
-        Accept: 'application.json',
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application.json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userId, likes }),
-    }).then((res) => res.json())
+      body: JSON.stringify({ userId, like }),
+    })
   }
+  
   async function Dislikes() {
-    likes = -1
-    await fetch('http://localhost:4000/api/posts/:id/like', {
+   const  like = -1
+    await fetch('http://localhost:4000/api/posts/'+ _id + '/like', {
       method: 'POST',
       headers: {
-        Accept: 'application.json',
+        'Authorization': 'Bearer ' + token,
+        'Accept': 'application.json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userId, likes }),
-    }).then((res) => res.json())
+      body: JSON.stringify({ userId, like }),
+    })
   }
   return (
-    <PostCard>
+    <PostCard >
       <Username>{userName}</Username>
       <Tittle>{title}</Tittle>
       <PostContent>
-        <Picture src={picture} alt="image du Post" />
+        <Picture src={ imageUrl} alt="image du Post" />
         <Text>{text}</Text>
       </PostContent>
       <LikesDislikes>
         <LikesPicture onClick={Likes} />
         {likes}
         <DislikesPicture onClick={Dislikes} />
-        {disLikes}
+        {dislikes}
       </LikesDislikes>
       <PostSettings>
         <details>
@@ -116,8 +120,7 @@ function Post({ _id,userName, title, picture, text, likes, disLikes }) {
             <summary>
           <Boutton >Modifier</Boutton>
           </summary>
-        
-                 <ModifyPost />
+                 <ModifyPost _id={_id}/>
                  </details>
         </details>
       </PostSettings>
@@ -129,7 +132,7 @@ Post.propTypes = {
   _id:PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  picture: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   likes: PropTypes.number.isRequired,
   disLikes: PropTypes.number.isRequired,
@@ -139,7 +142,7 @@ Post.defaultProps = {
   _id:'yo',
   userName: 'JeanMi',
   title: 'CegenredePost',
-  picture: DefaultPicture,
+  imageUrl: DefaultPicture,
   text:
     'gjgkjhggggggghkjjjjjjjjjjjjjjjjjdfgggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggjjjjjjjjjjjjjjjjjjjjjjjjjjgggggg',
   likes: 0,

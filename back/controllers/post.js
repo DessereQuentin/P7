@@ -4,14 +4,13 @@ const User = require('../models/User');
 
 
 exports.createPost = (req, res, next) => {
-console.log(req.body.title)
-console.log(req.body.text)
-  const postObject = JSON.parse(req.body.post)
+
   User.findById(req.auth.userId)
   .then((user)=>{
-  const post = new Post({
-    ...postObject,
-       userId: user._id,
+    const post = new Post({
+    title:req.body.title,
+    text:req.body.text,
+    userId: user._id,
     userName:user.userName,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     likes: 0,
@@ -19,38 +18,11 @@ console.log(req.body.text)
     usersLiked:[],
     usersDisliked:[]
   });
-  console.log(post)
   post.save()
 })
     .then(() => { res.status(201).json({ message: 'Objet enregistré !' }) })
     .catch(error => { res.status(400).json({ error }) })
 };
-
-
-
-/**exports.createPost = (req, res, next) => {
-  console.log("hello")
-    User.findById(req.auth.userId)
-    .then((user)=>{
-      console.log(req.body)
-    //  const postObject = JSON.parse(req.body)
-      const post = new Post({
-    //  ...postObject,
-    ...req.body,
-       userId: req.auth.userId,
-       userName:user.userName,
-       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-       likes: 0,
-       dislikes: 0,
-       userLikes:[],
-       userDislikes:[]
-      });
-    post.save()
-    })
-    .then(() => { res.status(201).json({ message: 'Objet enregistré !' }) })
-   .catch(error => { res.status(400).json({ error }) })  
-
-};*/
 
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
@@ -69,10 +41,17 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.modifyPost = (req, res, next) => {
-  const postObject = req.file ? {
-    ...JSON.parse(req.body.post),
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  } : { ...req.body }
+  const postObject = req.file ?
+   {
+    title: req.body.title,
+    text:req.body.text,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+ 
+   } : {
+    title: req.body.title,
+    text:req.body.text,
+  }
+  console.log(postObject)
    Post.findOne({ _id: req.params.id })
     .then((post) => {
       if ((req.auth.isAdmin!=true)&&(post.userId != req.auth.userId)) {
@@ -90,28 +69,27 @@ exports.modifyPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
+  console.log("hello")
   Post.findOne({ _id: req.params.id })
-
-    .then(post => {
-   
-      if ((req.auth.isAdmin!=true)&&(post.userId != req.auth.userId)) {
-        res.status(401).json({ message: 'Not authorized' });
-      } else {
-        const filename = post.imageUrl.split('/images/')[1];
-        fs.unlink(`images/${filename}`, () => {
-         Post.deleteOne({ _id: req.params.id })
+      .then(post => {
+          if ((req.auth.isAdmin!=true)&&(post.userId != req.auth.userId)) {
+             res.status(401).json({ message: 'Not authorized' });
+          }
+          else {
+             const filename = post.imageUrl.split('/images/')[1];
+             fs.unlink(`images/${filename}`, () => {
+         
+            Post.deleteOne({ _id: req.params.id })
             .then(() => { res.status(200).json({ message: 'Objet supprimé !' }) })
             .catch(error => res.status(401).json({ error }));
-        });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({ error });
-    });
+              });
+          }
+      })
+      .catch(error => { res.status(500).json({ error });});
 };
 
 exports.getAllPost = (req, res, next) => {
-  Post.find().then(
+  Post.find().sort({_id:-1}).then(
     (post) => {
       res.status(200).json(post);
     }
@@ -131,12 +109,12 @@ exports.getAllPost = (req, res, next) => {
 exports.modifyLikes = (req, res, next) => {
   const likeObject = { ...req.body }
   likeObject.userId=req.auth.userId
-
+console.log(likeObject)
   Post.findOne({ _id: req.params.id })
     .then((post) => {
       const postObject = post;
-
-      if (likeObject.like == 0) {
+console.log(postObject)
+     /** if (likeObject.likes == 0) {
         var indexLikes = postObject.usersLiked.indexOf(likeObject.userId);
         var indexDislikes = postObject.usersDisliked.indexOf(likeObject.userId);
 
@@ -149,8 +127,8 @@ exports.modifyLikes = (req, res, next) => {
          postObject.usersDisliked.splice(indexDislikes, 1);
          postObject.dislikes = postObject.usersDisliked.length
         }
-      }
-      else if (likeObject.like == 1) {
+      }*/
+       if (likeObject.like == 1) {
         var indexLikes = postObject.usersLiked.indexOf(likeObject.userId);
         var indexDislikes = postObject.usersDisliked.indexOf(likeObject.userId);
         if (indexDislikes != -1) {

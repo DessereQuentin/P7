@@ -38,7 +38,7 @@ border-radius: 30px 30px 30px 30px;
     
 
 
-function ModifyPost() {
+function ModifyPost({_id}) {
 
 
   const token=localStorage.getItem("token")
@@ -47,20 +47,20 @@ function ModifyPost() {
   const [picture, setPicture] = useState('')
 
 
-  async function CreatePostData(){ 
+  async function ModifyPostData(){ 
     let formData= new FormData();
 
     formData.append("title",title);
     formData.append("text",text);
     formData.append("image",picture);
 
-    await  fetch('http://localhost:4000/api/posts/',{
-    method:"POST",
+    await  fetch('http://localhost:4000/api/posts/'+_id,{
+    method:'PUT',
     headers: {
-       'Content-Type': 'multipart/form-data',
+
       'Authorization': 'Bearer ' + token
     },
-    body:formData
+    body:formData,
   })
     }
 
@@ -75,7 +75,7 @@ function ModifyPost() {
           <Label htmlFor="image">Image</Label>
           <InputImage type="file"       onChange={(e) => setPicture(e.target.files[0])}   id="image"/>        
          </PostContent>
-          <Boutton id="poster" onClick={CreatePostData}>Envoyer</Boutton>
+          <Boutton id="poster" onClick={ModifyPostData}>Envoyer</Boutton>
       </CreatePostWrapper>
     )
   }

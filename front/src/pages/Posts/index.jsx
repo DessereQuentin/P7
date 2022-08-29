@@ -101,10 +101,10 @@ if (error) {
      _id={post._id}
      userName={post.userName}
      title={post.title}
-     picture={post.picture}
+     imageUrl={post.imageUrl}
      text={post.text}
      likes={post.likes}
-     disLikes={post.disLikes}
+     dislikes={post.dislikes}
     />
   ))}
         </PostsWrapper>
