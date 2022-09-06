@@ -28,7 +28,7 @@ const Button = styled.div`
 
 const Signup = styled.button`
   background-color: #0dbcbc;
-  color: var(--primaire);
+  color: black;
   border-color: aquamarine;
   width: 80px;
   margin: 5px;
@@ -37,7 +37,7 @@ const Signup = styled.button`
 `
 const Login = styled.button`
   background-color: #0dbcbc;
-  color: var(--primaire);
+  color:black;
   border-color: aquamarine;
   width: 80px;
   margin: 5px;
@@ -48,7 +48,7 @@ const Login = styled.button`
 function Home() {
   return (
     <Body>
-      <Logo src={LogoImg} />
+      <Logo src={LogoImg} alt="Logo de Groupomania" />
       <Button>
         <Link to="/signup">
           <Signup>Signup</Signup>

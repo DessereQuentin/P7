@@ -6,11 +6,19 @@ import colors from '../../utils/style/colors'
 import LogoImg from '../../assets/icon-left-font-monochrome-black.png'
 import { Loader } from '../../utils/style/Atoms'
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faArrowDown} from '@fortawesome/free-solid-svg-icons'
+import './details.css'
 
 
 const Body = styled.div`
   background-color: ${colors.secondaire};
-`
+  `
+
+  const Details=styled.details`
+  margin-left:20px;
+  list-style:none;
+  `
 const Button = styled.div`
   display: flex;
   flex-direction: column;
@@ -18,8 +26,9 @@ const Button = styled.div`
   text-decoration: none;
 `
 const BouttonDeco = styled.button`
+font-size:16px;
   background-color: ${colors.quaternaire};
-  color: ${colors.primaire};
+  color:black;
   border-color: aquamarine;
   width: 120px;
   margin: 5px;
@@ -51,6 +60,7 @@ const AfficherCreatePost = styled.div`
   flex-direction: column;
   align-items: baseline;
   cursor: pointer;
+  margin-bottom:10px;
   `
   const LoaderWrapper = styled.div`
   display: flex;
@@ -80,14 +90,14 @@ if (error) {
       <Button>
         <BouttonDeco onClick={Disconect}>Deconnexion</BouttonDeco>
       </Button>
-      <Logo src={LogoImg} />
+      <Logo src={LogoImg} alt="Logo de Groupomania" />
       <Main>
         <Title> Actualités </Title>
         <AfficherCreatePost>
-          <details>
-            <summary>Créer une nouvelle publication fontawesome</summary>
+          <Details>
+            <summary>Créer une nouvelle publication  <FontAwesomeIcon icon={faArrowDown}></FontAwesomeIcon></summary>
             <CreatePost />
-          </details>
+          </Details>
         </AfficherCreatePost>
        {isLoading ? (
         <LoaderWrapper>

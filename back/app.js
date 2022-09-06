@@ -7,6 +7,7 @@ const path = require('path');
 require('dotenv').config()
 const morgan = require('morgan')
 
+
 mongoose.connect(process.env.DB_URL,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -15,7 +16,8 @@ mongoose.connect(process.env.DB_URL,
 
 
 const app = express();
-app.use(morgan("dev"))
+app.use(morgan("dev"));
+
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');

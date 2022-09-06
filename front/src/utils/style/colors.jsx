@@ -3,7 +3,7 @@ const colors = {
  secondaire : '#FFD7D7',
  tertiaire : '#4E5166',
 quaternaire:'#0dbcbc',
-noumerocinqo:'#fabcbc',
+cinq:'#fabcbc',
 }
 
 export default colors

@@ -6,6 +6,7 @@ import { useState } from 'react'
 const CreatePostWrapper=styled.div`
 display:flex;
 flex-direction:column;
+margin-left:20 px;
 `
 const PostContent=styled.div
 `display:flex;
@@ -16,10 +17,14 @@ const Label=styled.label`
 `
 
 const InputTitre=styled.input`
+border-radius:30px 30px 30px 30px;
+padding-left:20px;
 max-width: 300px
 `
 const InputText=styled.input`
-max-width: 500px
+border-radius:30px 30px 30px 30px;
+max-width: 500px;
+
 `
 const InputImage=styled.input`
 
@@ -27,13 +32,15 @@ const InputImage=styled.input`
 
 
 const Boutton=styled.button`
+font-size:16px;
 background-color: ${colors.quaternaire};
-color: ${colors.primaire};
+color: black;
 border-color: aquamarine;
 width: 120px;
 margin: 5px;
 padding: 10px;
 border-radius: 30px 30px 30px 30px;
+cursor:pointer;
     `
     
 
@@ -69,13 +76,13 @@ function ModifyPost({_id}) {
         <CreatePostWrapper>
            <PostContent>
         <Label htmlFor ="titre" >Titre</Label>
-          <InputTitre type="string" value={title}      onChange={(e) => setTitle(e.target.value)}  id="titre"/>
+          <InputTitre type="string" value={title}      onChange={(e) => setTitle(e.target.value)}  className="titre"/>
           <Label htmlFor="texte">Texte</Label>
-          <InputText type="string" value={text}      onChange={(e) => setText(e.target.value)}  id="texte"/>
+          <InputText type="string" value={text}      onChange={(e) => setText(e.target.value)}  className="texte"/>
           <Label htmlFor="image">Image</Label>
-          <InputImage type="file"       onChange={(e) => setPicture(e.target.files[0])}   id="image"/>        
+          <InputImage type="file"       onChange={(e) => setPicture(e.target.files[0])}   className="image"/>        
          </PostContent>
-          <Boutton id="poster" onClick={ModifyPostData}>Envoyer</Boutton>
+          <Boutton className="poster" onClick={ModifyPostData}>Envoyer</Boutton>
       </CreatePostWrapper>
     )
   }

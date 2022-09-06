@@ -22,7 +22,7 @@ const Logo = styled.img`
 function Login() {
   return (
     <Body>
-      <Logo src={LogoImg} />
+      <Logo src={LogoImg} alt="Logo de Groupomania"/>
       <LoginForm/>
           </Body>
   )

@@ -11,6 +11,7 @@ const postSchema = mongoose.Schema({
     dislikes: { type: Number, required:true },
     usersLiked: { type: Array, required: true },
     usersDisliked: { type: Array, required:true},
+    date:{type:Number,required : true}
 
 });
 

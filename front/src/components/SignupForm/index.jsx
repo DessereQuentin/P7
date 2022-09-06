@@ -38,7 +38,7 @@ const Button = styled.div`
 
 const BouttonSignup = styled.button`
 background-color: ${colors.quaternaire};
-  color: ${colors.primaire};
+  color:lack;
   border-color: aquamarine;
   width: 80px;
   margin: 5px;

@@ -16,7 +16,8 @@ exports.createPost = (req, res, next) => {
     likes: 0,
     dislikes: 0,
     usersLiked:[],
-    usersDisliked:[]
+    usersDisliked:[],
+    date:Date.now()
   });
   post.save()
 })
@@ -89,7 +90,7 @@ exports.deletePost = (req, res, next) => {
 };
 
 exports.getAllPost = (req, res, next) => {
-  Post.find().sort({_id:-1}).then(
+  Post.find().sort({date:-1}).then(
     (post) => {
       res.status(200).json(post);
     }
@@ -109,11 +110,10 @@ exports.getAllPost = (req, res, next) => {
 exports.modifyLikes = (req, res, next) => {
   const likeObject = { ...req.body }
   likeObject.userId=req.auth.userId
-console.log(likeObject)
   Post.findOne({ _id: req.params.id })
     .then((post) => {
       const postObject = post;
-console.log(postObject)
+
      /** if (likeObject.likes == 0) {
         var indexLikes = postObject.usersLiked.indexOf(likeObject.userId);
         var indexDislikes = postObject.usersDisliked.indexOf(likeObject.userId);
@@ -155,7 +155,15 @@ console.log(postObject)
        postObject.dislikes = postObject.usersDisliked.length
       }
 
-      Post.updateOne({ ...postObject, _id: req.params.id })
+
+const champUpdate ={
+  likes:postObject.likes,
+  dislikes:postObject.dislikes,
+  usersLiked:postObject.usersLiked,
+  usersDisliked:postObject.usersDisliked,
+}
+
+      Post.updateOne({ _id: req.params.id},{ ...champUpdate })
         .then(() => res.status(200).json({ message: 'like mis à jour' }))
         .catch(error => res.status(401).json({ error }));
     })
