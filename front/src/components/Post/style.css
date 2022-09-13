@@ -1,0 +1,7 @@
+.svg-inline--fa :active
+    {color:green;}
+
+.Unauthorize{display:none;}
+
+summary:active{
+ border-style: inset;}

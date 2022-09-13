@@ -5,15 +5,18 @@ import DefaultPicture from '../../assets/profile.png'
 import ModifyPost from '../ModifyPost'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {  faThumbsUp,  faThumbsDown} from '@fortawesome/free-solid-svg-icons'
+import './style.css'
 
 const PostCard = styled.div`
   background-color: ${colors.cinq};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   margin-bottom: 50px;
+  padding-bottom:10px;
 `
 
 const UserName = styled.h2`
-padding-left: 50 px;`
+padding-left: 20px;
+padding-top:10px;`
 
 const Title = styled.h3`
   margin-left: 50px;
@@ -23,6 +26,11 @@ const PostContent = styled.div`
   padding: 10px;
   display: flex;
   text-align: justify;
+  @media only screen and (max-width:768px){
+    flex-direction:column;
+   
+   margin:auto;
+    }
 `
 const Picture = styled.img`
   border-radius: 100px 100px 100px 100px;
@@ -30,6 +38,10 @@ const Picture = styled.img`
   display: flex;
   width: 180px;
   height: 180px;
+  @media only screen and (max-width:768px){
+    margin:auto;
+    margin-bottom:15px;
+       }
 `
 
 const Text = styled.p`
@@ -39,20 +51,28 @@ const Text = styled.p`
   padding: 25px;
   background-color: ${colors.secondaire};
   text-align:left;
+  max-width:70%;
+  margin:auto;
+
   
 `
 
 const LikesDislikes = styled.div`
   display: flex;
   margin: 25px;
-  padding: 10px;
+  padding: 20px;
   max-width: 80px;
   background-color: ${colors.secondaire};
   justify-content: space-between;
   cursor:pointer;
+  border-radius: 30px 30px 30px 30px;
+  @media only screen and (max-width:768px){
+    margin:auto;
+       }
 `
 
-const PostSettings = styled.div``
+const PostSettings = styled.div`
+`
 
 const Boutton = styled.button`
 font-size:16px;
@@ -67,10 +87,11 @@ font-size:16px;
   `
   const Details=styled.details`
   margin-left:20px;
-  `
+    `
 const Summary=styled.summary`
 background-color: ${colors.quaternaire};
 color:black;
+border:20px;
 border-color: aquamarine;
 width: 100px;
 margin: 5px;
@@ -78,10 +99,22 @@ padding: 10px;
 border-radius: 30px 30px 30px 30px;
 text-align:center;
 cursor:pointer;
+border-width: 2px;
+border-style: outset;
+
+
 `
-function Post({ _id, userName, title, imageUrl, text, likes, dislikes }) {
-  const userId = localStorage.getItem('userId')
+function Post({ _id, userName, title, imageUrl, text, likes, dislikes,userId}) {
+  const CurrentuserId = localStorage.getItem('userId')
   const token = localStorage.getItem('token')
+  let SettingClass;
+
+if((localStorage.getItem('isAdmin')==="true")||(CurrentuserId===userId)){
+  SettingClass= "Authorize"
+}else{
+      SettingClass="Unauthorize"
+  }
+
 
   async function Supprimer() {
     await fetch('http://localhost:4000/api/posts/' + _id, {
@@ -93,6 +126,7 @@ function Post({ _id, userName, title, imageUrl, text, likes, dislikes }) {
   }
 
   async function Likes() {
+    
     const like = 1
     await fetch('http://localhost:4000/api/posts/' + _id + '/like', {
       method: 'POST',
@@ -101,7 +135,7 @@ function Post({ _id, userName, title, imageUrl, text, likes, dislikes }) {
         Accept: 'application.json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userId, like }),
+      body: JSON.stringify({ CurrentuserId, like }),
     })
   }
 
@@ -114,7 +148,7 @@ function Post({ _id, userName, title, imageUrl, text, likes, dislikes }) {
         Accept: 'application.json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userId, like }),
+      body: JSON.stringify({ CurrentuserId, like }),
     })
   }
   return (
@@ -134,8 +168,8 @@ function Post({ _id, userName, title, imageUrl, text, likes, dislikes }) {
         ></FontAwesomeIcon>
         {dislikes}
       </LikesDislikes>
-      <PostSettings>
-        <Details>
+      <PostSettings className={SettingClass} >
+        <Details >
           <Summary>
            Settings
           </Summary>

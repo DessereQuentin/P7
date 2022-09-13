@@ -42,6 +42,7 @@ background-color: ${colors.quaternaire};
   border-color: aquamarine;
   width: 80px;
   margin: 5px;
+  margin-bottom:300px;
   padding: 10px;
   border-radius: 30px 30px 30px 30px;
 `

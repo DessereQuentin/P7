@@ -42,6 +42,7 @@ const BouttonLogin = styled.button`
   border-color: aquamarine;
   width: 80px;
   margin: 5px;
+  margin-bottom:300px;
   padding: 10px;
   border-radius: 30px 30px 30px 30px;
 `
@@ -64,7 +65,7 @@ function MyForm() {
       body:JSON.stringify({email,password})
          })
     .then(res=>res.json()) 
-    .then(res=>{localStorage.setItem("token",res.token);localStorage.setItem("userId",res.userId)})
+    .then(res=>{localStorage.setItem("token",res.token);localStorage.setItem("userId",res.userId);localStorage.setItem("isAdmin",res.isAdmin)})
  
 const token=localStorage.getItem("token")
 console.log(token)

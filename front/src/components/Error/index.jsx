@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
-import ErrorIllustration from '../../assets/404.svg'
+
 
 const ErrorWrapper = styled.div`
   margin: 30px;
@@ -19,15 +19,13 @@ const ErrorSubtitle = styled.h2`
   color: ${colors.secondary};
 `
 
-const Illustration = styled.img`
-  max-width: 800px;
-`
+
 
 function Error() {
   return (
     <ErrorWrapper>
       <ErrorTitle>Oups...</ErrorTitle>
-      <Illustration src='ErrorIllustration' />
+
       <ErrorSubtitle>
         Il semblerait que la page que vous cherchez n’existe pas
       </ErrorSubtitle>

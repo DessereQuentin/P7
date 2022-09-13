@@ -1,13 +1,14 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import { useState } from 'react'
+
 
 
 const CreatePostWrapper=styled.div`
 display:flex;
 flex-direction:column;
 border-bottom :solid pink;
+margin-top:15px;
 `
 const PostContent=styled.div
 `display:flex;
@@ -60,7 +61,9 @@ function CreatePost() {
     formData.append("image",picture);
    
 
-
+    if((title.length===0)||(text.length===0)){
+      return
+    }
     await  fetch('http://localhost:4000/api/posts/',{
     method:"POST",
     headers: {
@@ -77,11 +80,11 @@ window.location.reload()
     return (
         <CreatePostWrapper>
            <PostContent>
-        <Label htmlFor ="titre" >Titre</Label>
+        <Label html ="titre" >Titre</Label>
           <InputTitre type="string" value={title}      onChange={(e) => setTitle(e.target.value)}  id="titre"/>
-          <Label htmlFor="texte">Texte</Label>
+          <Label html="texte">Texte</Label>
           <InputText type="string" value={text}      onChange={(e) => setText(e.target.value)}  id="texte"/>
-          <Label htmlFor="image">Image</Label>
+          <Label html="image">Image</Label>
           <InputImage type="file"   onChange={(e) => setPicture(e.target.files[0])}   id="image"/>        
          </PostContent>
           <Boutton id="poster" onClick={CreatePostData}>Envoyer</Boutton>

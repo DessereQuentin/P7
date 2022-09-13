@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import colors from '../../utils/style/colors'
 import { useState } from 'react'
@@ -60,7 +59,9 @@ function ModifyPost({_id}) {
     formData.append("title",title);
     formData.append("text",text);
     formData.append("image",picture);
-
+if((title.length===0)||(text.length===0)){
+  return
+}
     await  fetch('http://localhost:4000/api/posts/'+_id,{
     method:'PUT',
     headers: {

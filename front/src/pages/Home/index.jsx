@@ -7,6 +7,7 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${colors.secondaire};
+ 
 `
 
 const Logo = styled.img`
@@ -23,6 +24,7 @@ const Button = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
+  margin-bottom:400px;
   text-decoration: none;
 `
 
