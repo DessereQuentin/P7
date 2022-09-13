@@ -12,6 +12,7 @@ import './style.css'
 
 const Body = styled.div`
   background-color: ${colors.secondaire};
+  min-height:1000px;
 `
 
 const Details = styled.details`
